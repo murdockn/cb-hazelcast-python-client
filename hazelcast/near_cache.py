@@ -72,7 +72,7 @@ class DataRecord(object):
                (max_idle_seconds is not None and self.last_access_time + max_idle_seconds < now)
 
     def __repr__(self):
-        return "DataRecord[key:{}, value:{}, create_time:{}, expiration_time:{}, last_access_time={}, access_hit={}]" \
+        return "DataRecord[key:{0}, value:{1}, create_time:{2}, expiration_time:{3}, last_access_time={4}, access_hit={5}]" \
             .format(self.key, self.value, self.create_time, self.expiration_time, self.last_access_time, self.access_hit)
 
 
@@ -159,13 +159,13 @@ class NearCache(dict):
 
         if len(new_eviction_samples) == len(new_eviction_samples_cleaned):  # did any item expired or do we need to evict
             try:
-                self.logger.debug("Evicting key:{}".format(self._eviction_candidates[0].key))
+                self.logger.debug("Evicting key:{0}".format(self._eviction_candidates[0].key))
                 self.__delitem__(self._eviction_candidates[0].key)
                 self._evicted_count += 1
                 del self._eviction_candidates[0]
             except KeyError:
                 # key may be evicted previously so just ignore it
-                self.logger.debug("Trying to evict but key:{} already expired.".format(self._eviction_candidates[0].key))
+                self.logger.debug("Trying to evict but key:{0} already expired.".format(self._eviction_candidates[0].key))
 
     def _find_new_random_samples(self):
         records = self.values()  # has random order because of dict hash
@@ -206,12 +206,12 @@ class NearCache(dict):
 
     def _clean_expired_record(self, key):
         try:
-            self.logger.debug("Expiring key:{}".format(key))
+            self.logger.debug("Expiring key:{0}".format(key))
             self.__delitem__(key)
             self._expired_count += 1
         except KeyError:
             # key may be evicted previously so just ignore it
-            self.logger.debug("Trying to expire but key:{} already expired.".format(key))
+            self.logger.debug("Trying to expire but key:{0} already expired.".format(key))
 
     def __repr__(self):
-        return "NearCache[len:{}, evicted:{}]".format(self.__len__(), self._evicted_count)
+        return "NearCache[len:{0}, evicted:{1}]".format(self.__len__(), self._evicted_count)

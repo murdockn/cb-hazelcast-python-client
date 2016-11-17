@@ -61,28 +61,28 @@ class ClientMessage(object):
 
     # HEADER ACCESSORS
     def get_correlation_id(self):
-        return struct.unpack_from(FMT_LE_LONG, self.buffer, CORRELATION_ID_FIELD_OFFSET)[0]
+        return struct.unpack_from(FMT_LE_LONG, buffer(self.buffer), CORRELATION_ID_FIELD_OFFSET)[0]
 
     def set_correlation_id(self, val):
         struct.pack_into(FMT_LE_LONG, self.buffer, CORRELATION_ID_FIELD_OFFSET, val)
         return self
 
     def get_partition_id(self):
-        return struct.unpack_from(FMT_LE_INT, self.buffer, PARTITION_ID_FIELD_OFFSET)[0]
+        return struct.unpack_from(FMT_LE_INT, buffer(self.buffer), PARTITION_ID_FIELD_OFFSET)[0]
 
     def set_partition_id(self, val):
         struct.pack_into(FMT_LE_INT, self.buffer, PARTITION_ID_FIELD_OFFSET, val)
         return self
 
     def get_message_type(self):
-        return struct.unpack_from(FMT_LE_UINT16, self.buffer, TYPE_FIELD_OFFSET)[0]
+        return struct.unpack_from(FMT_LE_UINT16, buffer(self.buffer), TYPE_FIELD_OFFSET)[0]
 
     def set_message_type(self, val):
         struct.pack_into(FMT_LE_UINT16, self.buffer, TYPE_FIELD_OFFSET, val)
         return self
 
     def get_flags(self):
-        return struct.unpack_from(FMT_LE_UINT8, self.buffer, FLAGS_FIELD_OFFSET)[0]
+        return struct.unpack_from(FMT_LE_UINT8, buffer(self.buffer), FLAGS_FIELD_OFFSET)[0]
 
     def set_flags(self, val):
         struct.pack_into(FMT_LE_UINT8, self.buffer, FLAGS_FIELD_OFFSET, val)
@@ -92,14 +92,14 @@ class ClientMessage(object):
         return self.get_flags() & flags
 
     def get_frame_length(self):
-        return struct.unpack_from(FMT_LE_INT, self.buffer, FRAME_LENGTH_FIELD_OFFSET)[0]
+        return struct.unpack_from(FMT_LE_INT, buffer(self.buffer), FRAME_LENGTH_FIELD_OFFSET)[0]
 
     def set_frame_length(self, val):
         struct.pack_into(FMT_LE_INT, self.buffer, FRAME_LENGTH_FIELD_OFFSET, val)
         return self
 
     def get_data_offset(self):
-        return struct.unpack_from(FMT_LE_UINT16, self.buffer, DATA_OFFSET_FIELD_OFFSET)[0]
+        return struct.unpack_from(FMT_LE_UINT16, buffer(self.buffer), DATA_OFFSET_FIELD_OFFSET)[0]
 
     def set_data_offset(self, val):
         struct.pack_into(FMT_LE_UINT16, self.buffer, DATA_OFFSET_FIELD_OFFSET, val)
@@ -152,7 +152,7 @@ class ClientMessage(object):
 
     # PAYLOAD READ
     def _read_from_buff(self, fmt, size):
-        val = struct.unpack_from(fmt, self.buffer, self._read_offset())
+        val = struct.unpack_from(fmt, buffer(self.buffer), self._read_offset())
         self._read_index += size
         return val[0]
 
@@ -218,14 +218,14 @@ class ClientMessage(object):
 
     def __str__(self):
         return "ClientMessage:{{" \
-               "length={}, " \
-               "correlationId={}, " \
-               "messageType={}, " \
-               "partitionId={}, " \
-               "isComplete={}, " \
-               "isRetryable={}, " \
-               "isEvent={}, " \
-               "writeOffset={}}}".format(self.get_frame_length(),
+               "length={0}, " \
+               "correlationId={1}, " \
+               "messageType={2}, " \
+               "partitionId={3}, " \
+               "isComplete={4}, " \
+               "isRetryable={5}, " \
+               "isEvent={6}, " \
+               "writeOffset={7}}}".format(self.get_frame_length(),
                                          self.get_correlation_id(),
                                          self.get_message_type(),
                                          self.get_partition_id(),

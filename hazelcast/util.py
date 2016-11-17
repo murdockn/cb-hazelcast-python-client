@@ -93,7 +93,7 @@ def validate_type(_type):
     :param _type: (Type), the type to be validated.
     """
     if not isinstance(_type, TypeType):
-        raise ValueError("Serializer should be an instance of {}".format(_type.__name__))
+        raise ValueError("Serializer should be an instance of {0}".format(_type.__name__))
 
 
 def validate_serializer(serializer, _type):
@@ -104,7 +104,7 @@ def validate_serializer(serializer, _type):
     :param _type: (Type), type to be used for serializer validation.
     """
     if not issubclass(serializer, _type):
-        raise ValueError("Serializer should be an instance of {}".format(_type.__name__))
+        raise ValueError("Serializer should be an instance of {0}".format(_type.__name__))
 
 
 class AtomicInteger(object):
@@ -112,7 +112,7 @@ class AtomicInteger(object):
     AtomicInteger is an Integer which can work atomically.
     """
     def __init__(self, initial=0):
-        self.count = itertools.count(start=initial)
+        self.count = itertools.count(initial)
 
     def get_and_increment(self):
         """
@@ -127,7 +127,7 @@ class AtomicInteger(object):
         Sets the value of this AtomicInteger.
         :param value: (int), the new value of AtomicInteger.
         """
-        self.count = itertools.count(start=value)
+        self.count = itertools.count(value)
 
 
 def enum(**enums):

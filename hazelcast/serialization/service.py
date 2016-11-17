@@ -82,7 +82,7 @@ class SerializationServiceV1(BaseSerializationService):
         class_defs = dict()
         for cd in class_definitions:
             if cd in class_defs:
-                raise HazelcastSerializationError("Duplicate registration found for class-id:{}".format(cd.class_id))
+                raise HazelcastSerializationError("Duplicate registration found for class-id:{0}".format(cd.class_id))
             class_defs[cd.class_id] = cd
         for cd in class_definitions:
             self.register_class_definition(cd, class_defs, check_error)
@@ -98,5 +98,5 @@ class SerializationServiceV1(BaseSerializationService):
                     self._portable_context.register_class_definition(nested_cd)
                 elif check_error:
                     raise HazelcastSerializationError(
-                            "Could not find registered ClassDefinition for class-id:{}".format(fd.class_id))
+                            "Could not find registered ClassDefinition for class-id:{0}".format(fd.class_id))
         self._portable_context.register_class_definition(cd)

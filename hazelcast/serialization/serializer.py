@@ -14,6 +14,9 @@ class BaseSerializer(StreamSerializer):
         pass
 
 
+def _bit_length(value):
+    return len(bin(value)) - 2
+
 # DEFAULT SERIALIZERS
 class NoneSerializer(BaseSerializer):
     def read(self, inp):
@@ -73,7 +76,7 @@ class IntegerSerializer(BaseSerializer):
         return inp.read_int()
 
     def write(self, out, obj):
-        if obj.bit_length() < 32:
+        if _bit_length(obj) < 32:
             out.write_int(obj)
         else:
             raise ValueError("Serialization only supports 32 bit ints")
@@ -87,7 +90,7 @@ class LongSerializer(BaseSerializer):
         return inp.read_long()
 
     def write(self, out, obj):
-        if obj.bit_length() < 64:
+        if _bit_length(obj) < 64:
             out.write_long(obj)
         else:
             raise ValueError("Serialization only supports 64 bit longs")
@@ -369,11 +372,11 @@ class IdentifiedDataSerializer(BaseSerializer):
 
         factory = self._factories.get(factory_id, None)
         if factory is None:
-            raise HazelcastSerializationError("No DataSerializerFactory registered for namespace: {}".format(factory_id))
+            raise HazelcastSerializationError("No DataSerializerFactory registered for namespace: {0}".format(factory_id))
         identified = factory.get(class_id, None)
         if identified is None:
             raise HazelcastSerializationError(
-                    "{} is not be able to create an instance for id: {} on factoryId: {}".format(factory, class_id, factory_id))
+                    "{0} is not be able to create an instance for id: {1} on factoryId: {2}".format(factory, class_id, factory_id))
         instance = identified()
         instance.read_data(inp)
         return instance

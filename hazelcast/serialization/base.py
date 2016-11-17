@@ -95,7 +95,7 @@ class BaseSerializationService(object):
             serializer = self._registry.serializer_by_type_id(type_id)
             if serializer is None:
                 if self._active:
-                    raise HazelcastSerializationError("Missing Serializer for type-id:{}".format(type_id))
+                    raise HazelcastSerializationError("Missing Serializer for type-id:{0}".format(type_id))
                 else:
                     raise HazelcastInstanceNotActiveError()
             return serializer.read(inp)
@@ -121,7 +121,7 @@ class BaseSerializationService(object):
             serializer = self._registry.serializer_by_type_id(type_id)
             if serializer is None:
                 if self._active:
-                    raise HazelcastSerializationError("Missing Serializer for type-id:{}".format(type_id))
+                    raise HazelcastSerializationError("Missing Serializer for type-id:{0}".format(type_id))
                 else:
                     raise HazelcastInstanceNotActiveError()
             return serializer.read(inp)
@@ -280,17 +280,17 @@ class SerializerRegistry(object):
         with self._registration_lock:
             if obj_type is not None:
                 if obj_type in self._constant_type_dict:
-                    raise ValueError("[{}] serializer cannot be overridden!".format(obj_type))
+                    raise ValueError("[{0}] serializer cannot be overridden!".format(obj_type))
                 current = self._type_dict.get(obj_type, None)
                 if current is not None and current.__class__ != stream_serializer.__class__:
-                    raise ValueError("Serializer[{}] has been already registered for type: {}"
+                    raise ValueError("Serializer[{0}] has been already registered for type: {1}"
                                      .format(current.__class__, obj_type))
                 else:
                     self._type_dict[obj_type] = stream_serializer
             serializer_type_id = stream_serializer.get_type_id()
             current = self._id_dic.get(serializer_type_id, None)
             if current is not None and current.__class__ != stream_serializer.__class__:
-                raise ValueError("Serializer[{}] has been already registered for type-id: {}"
+                raise ValueError("Serializer[{0}] has been already registered for type-id: {1}"
                                  .format(current.__class__, serializer_type_id))
             else:
                 self._id_dic[serializer_type_id] = stream_serializer

@@ -15,10 +15,10 @@ class Member(object):
         self.attributes = attributes
 
     def __str__(self):
-        return "Member [{}]:{} - {}".format(self.address.host, self.address.port, self.uuid)
+        return "Member [{0}]:{1} - {2}".format(self.address.host, self.address.port, self.uuid)
 
     def __repr__(self):
-        return "Member(host={}, port={}, uuid={}, liteMember={}, attributes={})" \
+        return "Member(host={0}, port={1}, uuid={2}, liteMember={3}, attributes={4})" \
             .format(self.address.host, self.address.port, self.uuid, self.is_lite_member, self.attributes)
 
     def __eq__(self, other):
@@ -52,7 +52,7 @@ class DistributedObjectInfo(object):
         self.service_name = service_name
 
     def __repr__(self):
-        return "DistributedObjectInfo(name={}, serviceName={})".format(self.name, self.service_name)
+        return "DistributedObjectInfo(name={0}, serviceName={1})".format(self.name, self.service_name)
 
 
 class EntryView(object):

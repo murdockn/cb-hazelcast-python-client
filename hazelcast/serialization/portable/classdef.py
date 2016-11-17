@@ -39,7 +39,7 @@ class FieldDefinition(object):
                    (other.index, other.field_name, other.field_type, other.factory_id, other.class_id)
 
     def __repr__(self):
-        return "FieldDefinition[ ix:{}, name:{}, type:{}, fid:{}, cid:{}]".format(self.index, self.field_name, self.field_type,
+        return "FieldDefinition[ ix:{0}, name:{1}, type:{2}, fid:{3}, cid:{4}]".format(self.index, self.field_name, self.field_type,
                                                                                   self.factory_id,
                                                                                   self.class_id)
 
@@ -62,7 +62,7 @@ class ClassDefinition(object):
                 for field in self.field_defs.itervalues():
                     if field.index == index:
                         return field
-            raise IndexError("Index is out of bound. Index: {} and size: {}".format(index, count))
+            raise IndexError("Index is out of bound. Index: {0} and size: {1}".format(index, count))
         else:
             return self.field_defs.get(field_name_or_index, None)
 
@@ -76,13 +76,13 @@ class ClassDefinition(object):
         fd = self.get_field(field_name)
         if fd:
             return fd.field_type
-        raise ValueError("Unknown field: {}".format(field_name))
+        raise ValueError("Unknown field: {0}".format(field_name))
 
     def get_field_class_id(self, field_name):
         fd = self.get_field(field_name)
         if fd:
             return fd.class_id
-        raise ValueError("Unknown field: {}".format(field_name))
+        raise ValueError("Unknown field: {0}".format(field_name))
 
     def get_field_count(self):
         return len(self.field_defs)
@@ -99,7 +99,7 @@ class ClassDefinition(object):
         return not self.__eq__(other)
 
     def __repr__(self):
-        return "fid:{}, cid:{}, v:{}, fields:{}".format(self.factory_id, self.class_id, self.version, self.field_defs)
+        return "fid:{0}, cid:{1}, v:{2}, fields:{3}".format(self.factory_id, self.class_id, self.version, self.field_defs)
 
 
 class ClassDefinitionBuilder(object):
@@ -218,4 +218,4 @@ class ClassDefinitionBuilder(object):
 
     def _check(self):
         if self._done:
-            raise HazelcastSerializationError("ClassDefinition is already built for {}".format(self.class_id))
+            raise HazelcastSerializationError("ClassDefinition is already built for {0}".format(self.class_id))

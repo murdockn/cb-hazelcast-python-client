@@ -173,7 +173,7 @@ class ClusterService(object):
         self._client.partition_service.refresh()
 
     def _handle_member_list(self, members):
-        self.logger.debug("Got initial member list: %s", members)
+        self.logger.debug("Got initial member list: %s", [str(m) for m in members])
 
         for m in list(self.members):
             try:
@@ -221,7 +221,7 @@ class ClusterService(object):
 
             # try to reconnect, on new thread
             reconnect_thread = threading.Thread(target=self._reconnect,
-                                                name="hazelcast-cluster-reconnect-{:.4}".format(uuid.uuid4()))
+                                                name="hazelcast-cluster-reconnect-{0:.4}".format(uuid.uuid4()))
             reconnect_thread.daemon = True
             reconnect_thread.start()
 

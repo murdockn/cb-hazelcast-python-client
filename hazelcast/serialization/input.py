@@ -156,14 +156,14 @@ class _ObjectDataInput(ObjectDataInput):
         if _position < 0:
             raise ValueError
         if self._size - _position < size:
-            raise EOFError("Cannot read {} bytes!".format(size))
+            raise EOFError("Cannot read {0} bytes!".format(size))
 
     def _read_from_buff(self, fmt, size, position=None):
         if position is None:
-            val = struct.unpack_from(fmt, self._buffer, self._pos)
+            val = struct.unpack_from(fmt, buffer(self._buffer), self._pos)
             self._pos += size
         else:
-            val = struct.unpack_from(fmt, self._buffer, position)
+            val = struct.unpack_from(fmt, buffer(self._buffer), position)
         return val[0]
 
     def _read_array_fnc(self, read_item_fnc):

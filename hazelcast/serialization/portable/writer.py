@@ -145,13 +145,13 @@ class DefaultPortableWriter(PortableWriter):
             raise HazelcastSerializationError("Cannot write Portable fields after get_raw_data_output() is called!")
         fd = self._class_def.get_field(field_name)
         if fd is None:
-            raise HazelcastSerializationError("Invalid field name:'{}' for ClassDefinition(id:{} , version:{} )"
+            raise HazelcastSerializationError("Invalid field name:'{0}' for ClassDefinition(id:{1} , version:{2} )"
                                               .format(field_name, self._class_def.class_id, self._class_def.version))
         if field_name not in self._writen_fields:
             self._write_field_def(fd.index, field_name, field_type)
             self._writen_fields.add(field_name)
         else:
-            raise HazelcastSerializationError("Field '{}' has already been written!".format(field_name))
+            raise HazelcastSerializationError("Field '{0}' has already been written!".format(field_name))
         return fd
 
     def _write_field_def(self, index, field_name, field_type):
@@ -171,11 +171,11 @@ class DefaultPortableWriter(PortableWriter):
 def _check_portable_attributes(field_def, portable):
     if field_def.factory_id != portable.get_factory_id():
         raise HazelcastSerializationError("Wrong Portable type! Generic portable types are not supported! "
-                                          "Expected factory-id: {}, Actual factory-id: {}"
+                                          "Expected factory-id: {0}, Actual factory-id: {1}"
                                           .format(field_def.factory_id, portable.get_factory_id()))
     if field_def.class_id != portable.get_class_id():
         raise HazelcastSerializationError("Wrong Portable type! Generic portable types are not supported! "
-                                          "Expected class-id: {}, Actual class-id: {}"
+                                          "Expected class-id: {0}, Actual class-id: {1}"
                                           .format(field_def.class_id, portable.get_class_id()))
 
 

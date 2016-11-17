@@ -369,7 +369,7 @@ class NearCacheConfig(object):
     @in_memory_format.setter
     def in_memory_format(self, in_memory_format=IN_MEMORY_FORMAT.BINARY):
         if in_memory_format not in IN_MEMORY_FORMAT.reverse:
-            raise ValueError("Invalid in-memory-format :{}".format(in_memory_format))
+            raise ValueError("Invalid in-memory-format :{0}".format(in_memory_format))
         self._in_memory_format = in_memory_format
 
     @property
@@ -402,7 +402,7 @@ class NearCacheConfig(object):
     @eviction_policy.setter
     def eviction_policy(self, eviction_policy):
         if eviction_policy not in EVICTION_POLICY.reverse:
-            raise ValueError("Invalid eviction_policy :{}".format(eviction_policy))
+            raise ValueError("Invalid eviction_policy :{0}".format(eviction_policy))
         self._eviction_policy = eviction_policy
 
     @property
