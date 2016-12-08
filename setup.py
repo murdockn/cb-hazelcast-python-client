@@ -9,7 +9,7 @@ here = path.abspath(path.dirname(__file__))
 #    long_description = f.read()
 
 setup(
-        name='cb-hazelcast-python-client',
+        name='python-hazelcast-client',
         version=__version__,
         description='Hazelcast Python Client',
 #        long_description=long_description,
@@ -25,8 +25,8 @@ setup(
             'Natural Language :: English',
             'Operating System :: OS Independent',
             'Programming Language :: Python',
-            # 'Programming Language :: Python :: 2.6',
-            'Programming Language :: Python :: 2.7',
+            'Programming Language :: Python :: 2.6',
+            # 'Programming Language :: Python :: 2.7',
             # 'Programming Language :: Python :: 3.3',
             # 'Programming Language :: Python :: 3.4',
             'Programming Language :: Python :: Implementation :: CPython',
